@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package authorization;
+option go_package="github.com\\Arailym2002talgatkyzu\\final-project\\authorization\\authpb;authpb";
+message User {
+  int32 id = 1;
+  string name = 2;
+  string username = 3;
+  string password = 4;
+}
+
+message CreateUserRequest {
+  User user = 1;
+}
+
+message CreateUserResponse {
+  string result = 1;
+  bool status = 2;
+}
+
+message LoginUserRequest {
+  User user = 1;
+}
+
+message LoginUserResponse {
+  int32 id = 1;
+  string result = 2;
+  bool status = 3;
+  string name=4;
+}
+
+message GetUserRequest {
+  int32 id = 1;
+}
+
+message GetUserResponse {
+  User user = 1;
+  string result = 2;
+  bool status = 3;
+}
+
+service AuthService {
+  rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {};
+  rpc AuthUser(LoginUserRequest) returns (LoginUserResponse) {};
+  rpc GetUser(GetUserRequest) returns (GetUserResponse) {};
+}

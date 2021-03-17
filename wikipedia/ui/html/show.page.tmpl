@@ -1,0 +1,27 @@
+{{template "base" .}}
+{{define "title"}}Post #{{.Post.ID}}{{end}}
+{{define "main"}}
+        <div class='article'>
+            <div class='metadata'>
+                <strong>Title: {{.Post.Title}}</strong>
+                <span>#{{.Post.ID}}</span>
+            </div>
+        <div class='metadata'>
+            <strong>Author: {{.Post.AuthorName}}</strong>
+            <span>
+                {{ if and .IsAuthenticated }}
+                    {{ if eq .UserID .Post.AuthorID }}
+                    <a href="/post/update/{{.Post.ID}}">Update</a><br>
+                    <form action='/post/delete/{{.Post.ID}}' method='POST'>
+                        <button>Delete</button>
+                    </form>
+                    {{end}}
+                {{end}}
+            </span>
+        </div>
+            <pre><code>{{.Post.Article}}</code></pre>
+            <div class='metadata'>
+                <time>{{.Post.Published | humanDate | printf "Published: %s"}}</time>
+            </div>
+        </div>
+{{end}}
